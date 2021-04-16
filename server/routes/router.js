@@ -7,6 +7,8 @@ const departmentRouter = require('./departmentRouter');
 const productRouter = require('./productRouter');
 const supplierRouter = require('./supplierRouter');
 
+/* /api/ */
+
 router.use('/users', userRouter);
 router.use('/checks', checkRouter);
 router.use('/departments', departmentRouter);

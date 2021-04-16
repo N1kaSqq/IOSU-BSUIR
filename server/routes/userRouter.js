@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = new Router();
 
-/*  /users/ */
+/*  /api/users/ */
 
 router.post('/register', );
 router.post('/login', );

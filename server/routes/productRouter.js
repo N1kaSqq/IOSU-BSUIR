@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = new Router();
 
-/*  /products/ */
+/*  /api/products/ */
 
 router.post('/', );
 router.get('/', );
