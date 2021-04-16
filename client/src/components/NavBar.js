@@ -41,7 +41,7 @@ function NavBar() {
                 <Menu.Item key="goods">
                     Товары
                 </Menu.Item>
-                <Menu.Item key="provider">
+                <Menu.Item key="suppliers">
                     Поставщики
                 </Menu.Item>
             </Menu>

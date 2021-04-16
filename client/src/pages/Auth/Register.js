@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Card, Select, DatePicker, InputNumber, Switch, } from 'antd';  
+import { Form, Input, Button, Card, Select, DatePicker, InputNumber, Switch, } from 'antd';  
 
 function Register() {
     const { Option } = Select;
