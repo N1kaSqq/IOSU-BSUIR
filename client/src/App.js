@@ -18,11 +18,11 @@ function App() {
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 'calc(100vh - 188px)', backgroundColor: '#fff' }}>
+          <div className="site-layout-background" style={{ padding: 24, minHeight: 'calc(100vh - 188px)', background: 'linear-gradient(90deg, #b9deed, #f0f2f5)' }}>
             <AppRouter />
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>Nikita Bogdanov using Ant Design ©2018</Footer>
       </Layout>
     </BrowserRouter>
   );
