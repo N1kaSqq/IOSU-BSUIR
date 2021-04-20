@@ -32,9 +32,6 @@ const User = sequelize.define('user', {
     birthDate: {
         type: DataTypes.DATE,
     },
-    birthDate: {
-        type: DataTypes.DATE,
-    },
     employmentDate: {
         type: DataTypes.DATE,
     },
@@ -71,7 +68,6 @@ const Department = sequelize.define('department', {
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: false,
     }
 });
 
