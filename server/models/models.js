@@ -17,7 +17,7 @@ const User = sequelize.define('user', {
         allowNull: false,
     },
     phoneNumber: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     password: {
