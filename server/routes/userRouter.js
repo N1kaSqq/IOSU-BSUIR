@@ -1,16 +1,18 @@
 const { Router } = require('express');
 const router = new Router();
 const userController = require('../controllers/userController');
+const authMiddleware = require('../middleware/AuthMiddleware');
+const checkRole = require('../middleware/CheckRoleMiddleware');
 
 /*  /api/users/ */
 
 router.post('/register', userController.registration);
 router.post('/login', userController.login);
-router.get('/isAuth', userController.check);
-router.get('/', userController.getAll);
-router.get('/:id', userController.getUserById);
-router.delete('/:id', userController.deleteUserById);
-router.put('/:id', userController.updateUser);
+router.get('/isAuth', authMiddleware,  userController.check);
+router.get('/', authMiddleware, userController.getAll);
+router.get('/:id', authMiddleware, userController.getUserById);
+router.delete('/:id', checkRole('ADMIN'), authMiddleware, userController.deleteUserById);
+router.put('/:id', authMiddleware, userController.updateUser);
 
 
 module.exports = router;

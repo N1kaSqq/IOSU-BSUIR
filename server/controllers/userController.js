@@ -3,6 +3,15 @@ const { User } = require('../models/models');
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 
+const generateJWT = (id, email, role, name, contractNumber) => {
+    return JWT.sign(
+        { id, email, role, name, contractNumber },
+        process.env.SECRET_KEY,
+        {
+            expiresIn: '24h',
+        });
+};
+
 class UserController {
     async registration(req, res, next) {
         try {
@@ -35,7 +44,7 @@ class UserController {
                 return next(ApiError.badRequest('Данный пользователь уже существует'));
             }
     
-            const hashPassword = await bcrypt.hash(password, 6);
+            const hashPassword = await bcrypt.hash(password, 8);
             const user = await User.create({
                 email,
                 role,
@@ -48,8 +57,8 @@ class UserController {
                 salary,
                 departmentId,
             });
-            
-            const token = generateJWT(user.id, user.email, user.role, user.name);
+
+            const token = generateJWT(user.id, user.email, user.role, user.name, user.contractNumber);
 
             return res.json({token});
         } catch (error) {
@@ -58,19 +67,32 @@ class UserController {
     }
 
     async login(req, res, next) {
-        
+        const {contractNumber, password} = req.body;
+
+        const user = await User.findOne({
+            where: {
+                contractNumber
+            }
+        });
+
+        if (!user) {
+            return next(ApiError.badRequest('Пользователя с таким email не сущестует'));
+        }
+
+        let comparePassword = bcrypt.compareSync(password, user.password);
+
+        if (!comparePassword) {
+            return next(ApiError.badRequest('Неверный пароль'));
+        }
+
+        const token = generateJWT(user.id, user.email, user.role, user.name, user.contractNumber);
+
+        return res.json({token});
     }
 
-    /* async check(req, res, next) {
-       const { id } = req.query;
-       if (!id) {
-           return next(ApiError.badRequest('не задан id'));
-       }
-       res.json(id);
-    } */
-
     async check(req, res, next) {
-        
+        const token = generateJWT(user.id, user.email, user.role, user.name, user.contractNumber);
+        return res.json({token});
     }
 
     async getAll(req, res, next) {

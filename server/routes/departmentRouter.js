@@ -1,12 +1,13 @@
 const { Router } = require('express');
 const router = new Router();
 departmentController = require ('../controllers/departmentController');
+const checkRole = require('../middleware/CheckRoleMiddleware');
 /*  /api/departments/ */
 
-router.post('/', departmentController.create);
+router.post('/', checkRole('ADMIN'), departmentController.create);
 router.get('/', departmentController.getAll);
 router.get('/:id', departmentController.getDepartmentById);
-router.delete('/:id', departmentController.delete);
-router.put('/:id', departmentController.updateDepartment);
+router.delete('/:id', checkRole('ADMIN'), departmentController.delete);
+router.put('/:id', checkRole('ADMIN'), departmentController.updateDepartment);
 
 module.exports = router;
