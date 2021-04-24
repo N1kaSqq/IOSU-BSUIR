@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Card, Select, DatePicker, InputNumber, Switch, } from 'antd';  
+import { Form, Input, Button, Card, Select, DatePicker, InputNumber, Switch, } from 'antd';
+import './auth.css';
 
 function Register() {
     const { Option } = Select;
@@ -14,7 +15,7 @@ function Register() {
       );
 
     return (
-        <Card title="Регистрация пользователя" bordered style={{ width: 500, padding: '0 30px', margin: '60px auto' }}>
+        <Card className="auth-card" title="Регистрация пользователя" bordered={false}>
         <Form
         layout="vertical"
       name="basic"

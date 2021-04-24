@@ -1,0 +1,9 @@
+.auth-card.auth-card {
+    width: 500px;
+    padding: 0 30px;
+    margin: 60px auto;
+    background: #ffffff44;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 1rem 0 rgba(41, 39, 39, 0.2);
+    outline: none;
+}
