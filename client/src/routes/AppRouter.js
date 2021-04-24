@@ -2,15 +2,16 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { authRoutes, publickRoutes } from './routes';
 import { MAIN_ROUTE } from '../utils/constants';
+import { useSelector } from 'react-redux';
+import { getIsAuth } from '../store/userStore/selectors';
 
-const user = {
-    isAuth: true,
-}
 
 function AppRouter() {
+    const isAuth = useSelector(getIsAuth);
+
     return (
         <Switch>
-            {user.isAuth && authRoutes.map(({ path, Component }) => 
+            {isAuth && authRoutes.map(({ path, Component }) => 
                 <Route key={path} path={path} component={Component} exact/>
             )}
             {publickRoutes.map(({ path, Component }) => 

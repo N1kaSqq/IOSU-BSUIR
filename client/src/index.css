@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {
@@ -27,4 +28,27 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: rgb(97, 97, 97);
   border-radius: 5px;
+}
+
+.content {
+  padding: 1px;
+  min-height: calc(100vh - 134px);
+  /* background: linear-gradient(90deg, #b9deed, #f0f2f5); */
+  background: url('./assets/bg.jpg') no-repeat center;
+  background-size: cover;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.spin.spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }

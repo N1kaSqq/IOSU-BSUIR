@@ -1,9 +1,22 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Card  } from 'antd';  
+import { Form, Input, Button, Checkbox, Card  } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {  MAIN_ROUTE } from '../../utils/constants';
+import { setIsAuth, setUser } from '../../store/userStore/actions';
+import './auth.css';
 
 function Login() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogin = () => {
+    dispatch(setIsAuth(true));
+    history.push(MAIN_ROUTE)
+  }
+
     return (
-        <Card title="Вход в систему" bordered style={{ width: 500, padding: '0 30px', margin: '60px auto' }}>
+        <Card className="auth-card" title="Вход в систему" bordered={false}>
         <Form
         layout="vertical"
       name="basic"
@@ -30,7 +43,12 @@ function Login() {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" style={{padding: '0px 20px'}}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          style={{padding: '0px 20px'}}
+          onClick={handleLogin}
+        >
           Вход
         </Button>
       </Form.Item>

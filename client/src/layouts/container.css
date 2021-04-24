@@ -1,0 +1,9 @@
+.custom-container {
+    transform: translateY(-1px);
+    width: 1000px;
+    background: #ffffff44;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 1rem 0 rgba(41, 39, 39, 0.2);
+    margin: 0 auto;
+    min-height: calc(100vh - 136px);
+}
