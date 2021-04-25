@@ -1,9 +1,9 @@
 import React from 'react'
 
-function DepartmentPage() {
+function DepartmentPage(props) {
     return (
         <div>
-            <h2 style={{fontSize: 24, padding: '15px 0 0 20px'}}>Какой-то отдел</h2>
+            <h1>{props.match.params.id}</h1>
         </div>
     )
 }

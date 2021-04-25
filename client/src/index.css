@@ -52,3 +52,11 @@ body::-webkit-scrollbar-thumb {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
+
+.red {
+  color: rgb(255, 0, 0);
+}
+
+.green {
+  color: rgb(1, 129, 1);
+}
