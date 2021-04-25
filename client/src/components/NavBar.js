@@ -26,7 +26,7 @@ function NavBar() {
     const handleLogout = () => {
         dispatch(setIsAuth(false));
         history.push(MAIN_ROUTE)
-      }
+    }
 
     return (
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%', backgroundColor: '#fff', display: 'flex' }}>
@@ -50,7 +50,7 @@ function NavBar() {
                             <Menu.ItemGroup title="Отделы">
                                 {
                                     departments.map(department => (
-                                        <Menu.Item key={department.id}>{department.name}</Menu.Item>
+                                        <Menu.Item onClick={() => history.push(DEPARTMENTS_ROUTE + '/' + department.id)} key={department.id}>{department.name}</Menu.Item>
                                     ))
                                 }
                             </Menu.ItemGroup>
