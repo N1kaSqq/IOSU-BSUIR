@@ -60,3 +60,12 @@ body::-webkit-scrollbar-thumb {
 .green {
   color: rgb(1, 129, 1);
 }
+
+.user-box {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  padding: 50px 50px 0px 50px;
+  justify-content: space-around;
+  align-items: center;
+}

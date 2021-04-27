@@ -1,6 +1,7 @@
 .custom-container {
     transform: translateY(-1px);
-    width: 1000px;
+    max-width: 1000px;
+    width: 100%;
     background: #ffffff44;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 1rem 0 rgba(41, 39, 39, 0.2);

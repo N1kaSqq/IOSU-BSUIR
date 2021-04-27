@@ -1,7 +1,8 @@
 const ApiError = require('../error/ApiError');
-const { User } = require('../models/models');
+const { User, Department } = require('../models/models');
 const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
+const { model } = require('../db');
 
 const generateJWT = (id, email, role, name, contractNumber) => {
     return JWT.sign(
@@ -37,7 +38,7 @@ class UserController {
             const candidate = await User.findOne({
                 where: {
                     email,
-                }
+                },
             });
     
             if (candidate) {
@@ -96,11 +97,52 @@ class UserController {
     }
 
     async getAll(req, res, next) {
+        const {departmentId, orderBy} = req.query
+        console.log(orderBy);
 
+        if (departmentId && departmentId!== 'all') {
+            if (orderBy === 'default') {
+                const users = await User.findAll({
+                    where: {departmentId},
+                    include: [{model: Department, as: 'department'}],
+                });
+                return res.json(users);
+            }
+            const users = await User.findAll({
+                where: {departmentId},
+                include: [{model: Department, as: 'department'}],
+                order: [['name', orderBy]],
+            });
+            return res.json(users);
+        }
+
+        if (orderBy!== 'default') {
+            const users = await User.findAll({
+                include: [{model: Department, as: 'department'}],
+                order: [['name', orderBy]],
+            });
+            return res.json(users);
+        }
+
+        const users = await User.findAll({
+            include: [{model: Department, as: 'department'}]
+        });
+        return res.json(users);
     }
 
     async getUserById(req, res, next) {
-        
+        const { id } = req.params;
+        if (!id) {
+            return next(ApiError.badRequest('Некорректный запрос'));
+        }
+        const user = await User.findOne({
+            where: {
+                id
+            },
+            include: [{model: Department, as: 'department'}]
+        });
+
+        res.json(user);
     }
 
     async deleteUserById(req, res, next) {
