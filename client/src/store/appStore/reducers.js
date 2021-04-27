@@ -4,36 +4,7 @@ import { setChecks, setDepartments, setProducts, setSuppliers, setUsers } from '
 
 const initialState = {
     checks: [],
-    departments: [
-        {
-            id: 1,
-            name: 'Продукты',
-            maxWorkers: 15,
-            maxGoods: 1000,
-            img: '',
-        },
-        {
-            id: 2,
-            name: 'Одежда',
-            maxWorkers: 10,
-            maxGoods: 600,
-            img: '',
-        },
-        {
-            id: 3,
-            name: 'Канцтовары',
-            maxWorkers: 6,
-            maxGoods: 20000,
-            img: '',
-        },
-        {
-            id: 4,
-            name: 'Бытовая техника',
-            maxWorkers: 18,
-            maxGoods: 100,
-            img: '',
-        },
-    ],
+    departments: [],
     products: [],
     suppliers: [],
     users: [

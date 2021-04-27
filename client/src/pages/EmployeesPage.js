@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../layouts/Container';
 import { useSelector } from 'react-redux';
 import { Select, Spin } from 'antd';
@@ -7,17 +7,27 @@ import { useHistory } from 'react-router-dom'
 import { getUsers, getDepartments } from '../store/appStore/selectors';
 import getRandomNumber from '../utils/getRandomNumber';
 import { EMPLOYEES_ROUTE } from '../utils/constants'
+import { $fethAuth } from "../api/index";
 
 const { Option } = Select;
 
 function EmployeesPage() {
-    const users = useSelector(getUsers);
+    /* const users = useSelector(getUsers); */
     const departments = useSelector(getDepartments);
     const history = useHistory();
 
+    const [users, setUsers] = useState([]);
+    const [departmentId, setDepartmentId] = useState('all');
+    const [orderBy, setOrderBy] = useState('default');
+    
     useEffect(() => {
-        console.log(11);
-    }, [])
+        getUsers();
+    }, [departmentId, orderBy]);
+
+    const getUsers = async () => {
+        const {data} = await $fethAuth.get(`api/users?departmentId=${departmentId}&orderBy=${orderBy}`);
+        setUsers(data);
+    }
 
     const handleClick = (employee) => {
         history.push(EMPLOYEES_ROUTE + '/' + employee.id);
@@ -30,23 +40,27 @@ function EmployeesPage() {
         return 'green';
     }
 
+    if (!users) {
+        return <Spin size="large" className="spin" />
+    }
+
     return (
         <Container>
             <h2 style={{fontSize: 24, padding: '15px 0 0 20px'}}>Сотрудники</h2>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', height: 65, borderTop: '1px solid black'}}>
                 <h2 style={{fontSize: 16, marginBottom: 0, marginLeft: 30}}>Сортировка:</h2>
-                <Select defaultValue="Все отделы" style={{ width: 140, marginLeft: 30 }}>
-                <Option value="Все отделы">Все отделы</Option>
+                <Select onChange={ id => setDepartmentId(id)} defaultValue="Все отделы" style={{ width: 140, marginLeft: 30 }}>
+                <Option value="all">Все отделы</Option>
                 {
                     departments.map(department => (
-                        <Option key={department.id} value={department.name}>{department.name}</Option>
+                        <Option key={department.id} value={department.id}>{department.name}</Option>
                     ))
                 }
                 </Select>
-                <Select defaultValue="По умолчанию" style={{ width: 140, marginLeft: 30 }}>
-                    <Option value="По умолчанию">По умолчанию</Option>
-                    <Option value="По возрастанию">По возрастанию</Option>
-                    <Option value="По убыванию">По убыванию</Option>
+                <Select onChange={ e => setOrderBy(e)} defaultValue="default" style={{ width: 140, marginLeft: 30 }}>
+                    <Option value="default">По умолчанию</Option>
+                    <Option value="ASC">По возрастанию</Option>
+                    <Option value="DESC">По убыванию</Option>
                 </Select>
             </div>
             <FlexRow style={{height: 50, marginLeft: 40}}>
@@ -57,6 +71,7 @@ function EmployeesPage() {
             </FlexRow>
             {
                 users.map((employee) => {
+                    employee.monthSales = 10;
                     return (
                         <FlexRow
                             key={employee.id}
@@ -65,7 +80,7 @@ function EmployeesPage() {
                         >
                             <div className="w-25 text-center"><img width={50} height={50} src={ require(`../assets/defaultUser${getRandomNumber(1,3)}.png`).default } alt=""/></div>
                             <div className="w-25 text-center">{employee.name}</div>
-                            <div className="w-25 text-center">{employee.department}</div>
+                            <div className="w-25 text-center">{employee?.department?.name}</div>
                             <div style={{fontSize: 20}} className={`w-25 text-center ${setColor(employee)}`}>{employee.monthSales}</div>
                         </FlexRow>
                     );
