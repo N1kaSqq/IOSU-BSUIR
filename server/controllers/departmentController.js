@@ -1,8 +1,8 @@
-const { Department } = require('../models/models');
+const { Department, User } = require('../models/models');
+const sequelize = require('../db');
 const ApiError = require('../error/ApiError');
 const uuid = require('uuid');
 const path = require('path');
-const { getAll } = require('./userController');
 
 class DepartmentController {
     async create(req, res, next) {
@@ -40,11 +40,30 @@ class DepartmentController {
     }
 
     async getDepartmentById(req, res) {
-        
+        const { id } = req.params;
+        if (!id) {
+            return next(ApiError.badRequest('Некорректный запрос'));
+        }
+        const department = await Department.findOne({
+            where: {
+                id
+            },
+        });
+
+        res.json(department);
     }
 
     async updateDepartment() {
         
+    }
+
+    async getExtendedDepartments(req, res) {
+        const data = await sequelize.query(`SELECT "departments"."id", "departments"."name", "departments"."img", Count("users"."departmentId") AS CountWorkers
+        FROM departments INNER JOIN users ON "departments"."id" = "users"."departmentId"
+        GROUP BY "departments"."id", "departments"."img", "departments"."name";`,
+            { replacements: { status: 'active' }, type: sequelize.QueryTypes.SELECT }
+        );
+        return res.json(data);
     }
 
     async delete(req, res) {
