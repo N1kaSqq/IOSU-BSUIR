@@ -6,6 +6,7 @@ const checkRole = require('../middleware/CheckRoleMiddleware');
 
 router.post('/', checkRole('ADMIN'), departmentController.create);
 router.get('/', departmentController.getAll);
+router.get('/extend', departmentController.getExtendedDepartments);
 router.get('/:id', departmentController.getDepartmentById);
 router.delete('/:id', checkRole('ADMIN'), departmentController.delete);
 router.put('/:id', checkRole('ADMIN'), departmentController.updateDepartment);

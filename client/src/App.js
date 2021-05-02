@@ -3,11 +3,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import AppRouter from './routes/AppRouter';
 import { setIsAuth, setUser } from './store/userStore/actions';
-import { setDepartments } from './store/appStore/actions';
+import { setDepartments, setSuppliers } from './store/appStore/actions';
 import NavBar from './components/NavBar';
 import { Layout, Spin } from 'antd';
 import { check } from "./api/auth";
-import { getAllDepartments } from './api/departments';
+import { getAllDepartments, getAllSuppliers } from './api/departments';
 import 'antd/dist/antd.css';
 
 const { Content, Footer } = Layout;
@@ -31,7 +31,11 @@ function App() {
     getAllDepartments().then((departments) => {
       console.log(departments);
       dispatch(setDepartments(departments));
-    })
+    });
+    getAllSuppliers().then((suppliers) => {
+      console.log(suppliers);
+      dispatch(setSuppliers(suppliers));
+    });
   }, [])
 
   if (loading) {

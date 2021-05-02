@@ -74,6 +74,7 @@ function EmployeesPage() {
                     employee.monthSales = 10;
                     return (
                         <FlexRow
+                            hover
                             key={employee.id}
                             style={{height: 50}}
                             onClick={() => handleClick(employee)}
@@ -86,7 +87,6 @@ function EmployeesPage() {
                     );
                 })
             }
-            {/* <Spin size="large" className="spin" /> */}
         </Container>
     )
 }

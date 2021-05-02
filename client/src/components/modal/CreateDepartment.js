@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, InputNumber, Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
 import { openNotification } from '../../utils/openNotification';
+import { setDepartments } from '../../store/appStore/actions';
+import { createDepartment, getAllDepartments } from '../../api/departments';
 
 function CreateDepartment(props) {
+    const dispatch = useDispatch();
     const [file, setFile] = useState(null);
     const [name, setName] = useState(null);
     const [maxGoods, setMaxGoods] = useState(null);
@@ -13,9 +17,23 @@ function CreateDepartment(props) {
         setFile(e.fileList[0]);
     };
 
-    const createDepartment = () => {
-        props.handleOk();
-        openNotification('Раздел успешно добавлен !', true);
+    const addDepartment = () => {
+        console.log(name, maxGoods, maxWorkers);
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('maxGoods', maxGoods);
+        formData.append('maxWorkers', maxWorkers);
+        if (file) {
+            formData.append('img', file.originFileObj);
+        }
+        createDepartment(formData)
+        .then(data => {
+            getAllDepartments().then((departments) => {
+                dispatch(setDepartments(departments));
+            });
+            props.handleOk();
+            openNotification('Раздел успешно добавлен !', true);
+        })
     };
 
     return (
@@ -28,7 +46,7 @@ function CreateDepartment(props) {
                 <Button key="back" onClick={props.handleCancel}>
                     Отмена
                 </Button>,
-                <Button key="submit" type="primary" onClick={createDepartment}>
+                <Button key="submit" type="primary" onClick={addDepartment}>
                     Добавить
                 </Button>,
             ]}
@@ -63,7 +81,7 @@ function CreateDepartment(props) {
 
                 <Form.Item
                     name="upload"
-                    label="Upload"
+                    label="Картинка"
                     valuePropName="fileList"
                     getValueFromEvent={selectFile}
                 >

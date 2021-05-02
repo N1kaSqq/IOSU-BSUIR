@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Layout, Menu } from 'antd';
 import { Trophy } from 'react-bootstrap-icons';
 import { useHistory } from 'react-router-dom';
-import { LOGIN_ROUTE,
+import {
+        LOGIN_ROUTE,
         REGISTRATION_ROUTE,
         MAIN_ROUTE,
         EMPLOYEES_ROUTE,
         DEPARTMENTS_ROUTE,
+        SUPPLIERS_ROUTE,
+        GOODS_ROUTE,
 } from '../utils/constants'
 import { setIsAuth, setUser } from '../store/userStore/actions';
 import { getIsAuth, getUser } from '../store/userStore/selectors';
@@ -17,15 +20,24 @@ const { SubMenu } = Menu;
 const { Header } = Layout;
 
 function NavBar() {
-
     const history = useHistory();
     const dispatch = useDispatch();
     const isAuth = useSelector(getIsAuth);
+    const user = useSelector(getUser);
     const departments = useSelector(getDepartments);
 
     const handleLogout = () => {
         dispatch(setIsAuth(false));
+        localStorage.removeItem('token');
+        dispatch(setUser({}));
         history.push(MAIN_ROUTE)
+    }
+
+    const displayIcom = () => {
+        if (user && user.role === 'ADMIN') {
+            return 'inline';
+        }
+        return 'none';
     }
 
     return (
@@ -59,10 +71,16 @@ function NavBar() {
                                 <Menu.Item key="setting:2">Все продажи</Menu.Item>
                             </Menu.ItemGroup>
                         </SubMenu>
-                        <Menu.Item key="goods">
+                        <Menu.Item
+                            key="goods"
+                            onClick={ ()=> history.push(GOODS_ROUTE) }
+                        >
                             Товары
                         </Menu.Item>
-                        <Menu.Item key="suppliers">
+                        <Menu.Item
+                            key="suppliers"
+                            onClick={ ()=> history.push(SUPPLIERS_ROUTE) }
+                        >
                             Поставщики
                         </Menu.Item>
                     </>
@@ -82,7 +100,14 @@ function NavBar() {
                 {
                     isAuth ? 
                     <>
-                        <Menu.Item key="profile" icon={<Trophy style={{transform: 'translateY(3px)'}} size={16} color="#f39c12"/>}>
+                        <Menu.Item
+                            key="profile"
+                            icon={<Trophy style={{transform: 'translateY(3px)', display: displayIcom()}}
+                                size={16}
+                                color="#f39c12"
+                            />}
+                            onClick={() => history.push(EMPLOYEES_ROUTE + '/' + user.id)}
+                        >
                             Профиль
                         </Menu.Item>
                         <Menu.Item
