@@ -29,3 +29,8 @@ export const getAllProducts = async () => {
     const {data} = await $fetch.get('api/products?departmentId=all&orderBy=default');
     return data;
 }
+
+export const createCheck = async (check) => {
+    const {data} = await $fethAuth.post('api/checks', check);
+    return data;
+}

@@ -1,58 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { setChecks, setDepartments, setProducts, setSuppliers, setUsers } from './actions';
+import { setChecks, setDepartments, setProducts, setSuppliers, setUsers, setCurrentCheck } from './actions';
 
 const initialState = {
     checks: [],
     departments: [],
     products: [],
     suppliers: [],
-    users: [
-        {
-            id: 1,
-            email: 'test@mail.ru',
-            name: 'Nikita',
-            role: 'ADMIN',
-            department: 'Продукты',
-            phoneNumber: '+375298408010',
-            monthSales: 4
-        },
-        {
-            id: 2,
-            email: 'test2@mail.ru',
-            name: 'Andrey',
-            role: 'USER',
-            department: 'Одежда',
-            phoneNumber: '+375298408010',
-            monthSales: 11
-        },
-        {
-            id: 3,
-            email: 'test3@mail.ru',
-            name: 'Kostya',
-            role: 'USER',
-            department: 'Продукты',
-            phoneNumber: '+375298408010',
-            monthSales: 3
-        },
-        {
-            id: 4,
-            email: 'test4@mail.ru',
-            name: 'Anton',
-            role: 'USER',
-            department: 'Продукты',
-            phoneNumber: '+375298408010',
-            monthSales: 6
-        },{
-            id: 5,
-            email: 'test5@mail.ru',
-            name: 'Kostya',
-            role: 'USER',
-            department: 'Канцтовары',
-            phoneNumber: '+375298408010',
-            monthSales: 16
-        }
-    ],
+    users: [],
+    currentCheck: {},
 }
 
 export default createReducer(initialState, (builder) => {
@@ -71,5 +27,8 @@ export default createReducer(initialState, (builder) => {
       })
       .addCase(setUsers, (state, action) => {
         state.users = action.payload;
+      })
+      .addCase(setCurrentCheck, (state, action) => {
+        state.currentCheck = action.payload;
       })
   });

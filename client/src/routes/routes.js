@@ -4,6 +4,8 @@ import MainPage from '../pages/MainPage';
 import EmployeesPage from '../pages/EmployeesPage';
 import SuppliersPage from '../pages/SuppliersPage';
 import AllProductsPage from '../pages/AllProductsPage';
+import SalePage from '../pages/SalePage';
+import CurrentCheckPage from '../pages/CurrentCheckPage';
 import {
     LOGIN_ROUTE,
     REGISTRATION_ROUTE,
@@ -12,6 +14,8 @@ import {
     DEPARTMENTS_ROUTE,
     SUPPLIERS_ROUTE,
     GOODS_ROUTE,
+    SALE_ROUTE,
+    CURRENTCHECK_ROUTE,
 } from '../utils/constants'
 import UserPage from '../pages/UserPage';
 import DepartmentPage from '../pages/DepartmentPage';
@@ -41,6 +45,14 @@ export const authRoutes = [
     {
         path: GOODS_ROUTE,
         Component: AllProductsPage
+    },
+    {
+        path: SALE_ROUTE,
+        Component: SalePage
+    },
+    {
+        path: CURRENTCHECK_ROUTE,
+        Component: CurrentCheckPage
     },
 ];
 export const publickRoutes = [

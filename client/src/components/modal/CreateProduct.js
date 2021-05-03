@@ -24,10 +24,6 @@ function CreateProduct(props) {
         setFile(e.fileList[0]);
     };
 
-    useEffect(() => {
-        console.log(suppliers);
-    }, []);
-
     const addDepartment = () => {
         const formData = new FormData();
         formData.append('name', name);

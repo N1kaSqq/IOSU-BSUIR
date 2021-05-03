@@ -7,3 +7,4 @@ export const getDepartments = createSelector(getAppStore, (app) => app.departmen
 export const getProducts = createSelector(getAppStore, (app) => app.products);
 export const getSuppliers = createSelector(getAppStore, (app) => app.suppliers);
 export const getUsers = createSelector(getAppStore, (app) => app.users);
+export const getCurrentCheck = createSelector(getAppStore, (app) => app.currentCheck);
