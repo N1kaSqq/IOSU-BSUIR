@@ -11,6 +11,7 @@ import {
         DEPARTMENTS_ROUTE,
         SUPPLIERS_ROUTE,
         GOODS_ROUTE,
+        SALE_ROUTE
 } from '../utils/constants'
 import { setIsAuth, setUser } from '../store/userStore/actions';
 import { getIsAuth, getUser } from '../store/userStore/selectors';
@@ -82,6 +83,12 @@ function NavBar() {
                             onClick={ ()=> history.push(SUPPLIERS_ROUTE) }
                         >
                             Поставщики
+                        </Menu.Item>
+                        <Menu.Item
+                            key="sale"
+                            onClick={ ()=> history.push(SALE_ROUTE) }
+                        >
+                            Продажа
                         </Menu.Item>
                     </>
                     :

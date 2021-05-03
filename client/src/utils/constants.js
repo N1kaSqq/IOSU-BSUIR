@@ -5,3 +5,5 @@ export const EMPLOYEES_ROUTE = '/employees';
 export const DEPARTMENTS_ROUTE = '/departments';
 export const GOODS_ROUTE = '/goods';
 export const SUPPLIERS_ROUTE = '/suppliers';
+export const SALE_ROUTE = '/sale';
+export const CURRENTCHECK_ROUTE = '/current-check';

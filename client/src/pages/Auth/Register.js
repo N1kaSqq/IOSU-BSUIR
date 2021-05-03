@@ -52,8 +52,8 @@ function Register() {
     }
 
     /* useEffect(() => {
-      console.log(email);
-    }, [email]) */
+      console.log(birthDate);
+    }, [birthDate]) */
 
     return (
         <Card className="auth-card" title="Регистрация пользователя" bordered={false}>
